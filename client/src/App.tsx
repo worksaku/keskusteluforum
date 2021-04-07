@@ -1,5 +1,17 @@
-import React from 'react';
+import axios from 'axios';
 
-export default function App() {
-    return <p>Hello world!!</p>
+function App() {
+  const click = () => {
+    axios.post('/user', {
+      username: 'Test',
+      password: 'word',
+    });
+  };
+  return (
+    <div className="App">
+      This is app <button onClick={click}>click</button>
+    </div>
+  );
 }
+
+export default App;
