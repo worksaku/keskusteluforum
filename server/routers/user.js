@@ -19,7 +19,17 @@ router.post('/user/login', async (req, res) => {
       token,
     });
   } catch (e) {
-    res.status(401).send();
+    res.status(500).send();
+  }
+});
+
+router.post('/user', async (req, res) => {
+  try {
+    const user = new User(req.body);
+    user.save();
+    res.status(201).send(user);
+  } catch (e) {
+    res.status(500).send();
   }
 });
 
