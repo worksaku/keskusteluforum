@@ -1,4 +1,3 @@
-import { Button, TextField, Typography } from '@material-ui/core';
 import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
@@ -33,25 +32,11 @@ const CreatePostPage: React.FC = () => {
   };
   return (
     <div>
-      <Typography>Create post</Typography>
+      <h2>Create post</h2>
       <form onSubmit={submit}>
-        <TextField
-          label="Title"
-          variant="outlined"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextField
-          label="Body"
-          variant="outlined"
-          multiline
-          rows={4}
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-        />
-        <Button variant="contained" color="primary" type="submit">
-          Submit
-        </Button>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        <textarea value={body} onChange={(e) => setBody(e.target.value)} />
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

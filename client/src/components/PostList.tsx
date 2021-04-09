@@ -1,4 +1,3 @@
-import { Button, Card, CardContent, Typography } from '@material-ui/core';
 import { useContext } from 'react';
 import { useHistory } from 'react-router';
 import PostsContext from '../context/PostsContext';
@@ -13,15 +12,13 @@ const PostList: React.FC = () => {
   return (
     <div>
       {user && (
-        <Button onClick={() => history.push('/create')}>Create post</Button>
+        <button onClick={() => history.push('/create')}>Create post</button>
       )}
       {posts.map((post: PostType) => (
-        <Card key={post._id}>
-          <CardContent>
-            <Typography gutterBottom>{post.title}</Typography>
-            <Typography>{post.body}</Typography>
-          </CardContent>
-        </Card>
+        <div key={post._id}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </div>
       ))}
     </div>
   );

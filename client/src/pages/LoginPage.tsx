@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { Button, TextField, Typography } from '@material-ui/core';
 
 import UserContext from '../context/UserContext';
 import { UserContextType } from '../models/user';
@@ -34,28 +33,20 @@ const LoginPage: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h2" component="h2">
-        Login
-      </Typography>
+      <h2>Login</h2>
       <form onSubmit={submit}>
-        <TextField
+        <input
           name="username"
-          label="Username"
-          variant="outlined"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <TextField
+        <input
           name="password"
           type="password"
-          label="Password"
-          variant="outlined"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button color="primary" type="submit" variant="contained">
-          Login
-        </Button>
+        <button type="submit">Login</button>
       </form>
     </>
   );
