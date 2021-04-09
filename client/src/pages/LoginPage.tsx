@@ -20,7 +20,7 @@ const LoginPage: React.FC = () => {
           password,
         })
         .then((res: AxiosResponse) => {
-          setUser(res.data.user);
+          typeof setUser === 'function' && setUser(res.data.user);
         })
         .catch((err) => {
           console.log(err);
