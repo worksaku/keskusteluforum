@@ -1,14 +1,19 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import UserContext from '../context/UserContext';
 import { UserContextType } from '../models/user';
 import { Redirect } from 'react-router';
 import axios, { AxiosResponse } from 'axios';
 
+type InputTargetType = {
+  value: string;
+};
+
 const LoginPage: React.FC = () => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [errors, setErrors] = useState<Array<string>>([]);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +30,8 @@ const LoginPage: React.FC = () => {
           console.log(err);
         });
     } else {
-      console.log('lets not go');
+      if (!username) setErrors((prev) => [...prev, 'Invalid username']);
+      if (!password) setErrors((prev) => [...prev, 'Invalid password']);
     }
   };
 
@@ -33,20 +39,42 @@ const LoginPage: React.FC = () => {
 
   return (
     <>
-      <h2>Login</h2>
-      <form onSubmit={submit}>
+      <h2 className="text-4xl mb-5">Login</h2>
+      <form
+        onSubmit={submit}
+        className="flex flex-col content-start"
+        onChange={() => setErrors([])}
+      >
+        {errors.map((err) => (
+          <p key={err} className="text-red mb-3">
+            {err}
+          </p>
+        ))}
         <input
           name="username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e: React.ChangeEvent<InputTargetType>) =>
+            setUsername(e.target.value)
+          }
+          className="border mb-3 px-2 py-3 rounded"
+          placeholder="Username"
         />
         <input
           name="password"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<InputTargetType>) =>
+            setPassword(e.target.value)
+          }
+          className="border mb-3 px-2 py-3 rounded"
+          placeholder="Password"
         />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          className="bg-blue-400 px-2 py-3 uppercase text-sm rounded text-white"
+        >
+          Login
+        </button>
       </form>
     </>
   );

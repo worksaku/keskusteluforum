@@ -13,7 +13,7 @@ router.get('/posts', async (req, res) => {
 });
 
 router.post('/posts', auth, async (req, res) => {
-  const post = new Post({ ...req.body, author: req.user._id });
+  const post = new Post({ ...req.body, author: req.user });
 
   try {
     await post.save();

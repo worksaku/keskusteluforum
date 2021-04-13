@@ -34,17 +34,27 @@ const App: React.FC = () => {
     <UserContext.Provider value={{ user, setUser }}>
       <PostsContext.Provider value={{ posts, dispatchPosts }}>
         <BrowserRouter>
-          <div>
-            <Link to="/">Keskustelufoorumi</Link>
+          <div className="p-5 bg-blue-500 flex content-center justify-between">
+            <Link className="text-white" to="/">
+              Keskustelufoorumi
+            </Link>
             {!!user ? (
-              <button onClick={logout}>Logout</button>
+              <button
+                onClick={logout}
+                className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
+              >
+                Logout
+              </button>
             ) : (
-              <Link to="/login" style={{ marginLeft: 'auto' }}>
+              <Link
+                to="/login"
+                className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
+              >
                 Login
               </Link>
             )}
           </div>
-          <div className="md:container mx-auto">
+          <div className="mx-auto max-w-4xl p-5">
             <Switch>
               <Route path="/login" component={LoginPage} />
               <Route path="/create" component={CreatePostPage} />

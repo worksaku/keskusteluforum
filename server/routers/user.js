@@ -29,7 +29,7 @@ router.post('/user', async (req, res) => {
     user.save();
     res.status(201).send(user);
   } catch (e) {
-    res.status(500).send();
+    res.status(401).send();
   }
 });
 

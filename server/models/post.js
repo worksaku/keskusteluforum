@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema(
       trim: true,
     },
     author: {
-      type: mongoose.Types.ObjectId,
+      type: Object,
       required: true,
     },
     comments: [
@@ -22,7 +22,7 @@ const postSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
-        author: mongoose.Types.ObjectId,
+        author: Object,
       },
     ],
   },
