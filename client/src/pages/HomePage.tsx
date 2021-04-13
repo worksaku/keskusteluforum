@@ -1,6 +1,7 @@
+import React from 'react';
 import { PostList } from '../components';
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return <PostList />;
 };
 

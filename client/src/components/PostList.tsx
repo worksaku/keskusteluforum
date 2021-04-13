@@ -26,29 +26,48 @@ const PostList: React.FC = () => {
           Create post
         </button>
       )}
-      {posts.map((post: PostType) => (
-        <div key={post._id} className="border mb-5">
-          <div className="px-5 flex justify-between">
-            <p>{`Created: ${formatDate(post.createdAt)}`}</p>
-            {post.createdAt !== post.updatedAt && (
-              <p>{`Updated: ${formatDate(post.updatedAt)}`}</p>
-            )}
+      {posts?.length ? (
+        posts.map((post: PostType) => (
+          <div key={post._id} className="border mb-5">
+            <div className="px-5 flex justify-between">
+              <p>{`Created: ${formatDate(post.createdAt)}`}</p>
+              {post.createdAt !== post.updatedAt && (
+                <p>{`Updated: ${formatDate(post.updatedAt)}`}</p>
+              )}
+            </div>
+            <div className="border-t px-5 py-3 flex justify-between">
+              <div>
+                <p>by {post.author.username}</p>
+                <h2 className="text-3xl mb-3">{post.title}</h2>
+                <p>{post.body}</p>
+              </div>
+              <div className="flex flex-col">
+                {(user?.role === 'admin' || user?._id === post.author._id) && (
+                  <button
+                    className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
+                    onClick={() => history.push(`/post/${post._id}?edit`)}
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="border-t px-5 py-1 flex justify-between">
+              <div>
+                <Link
+                  className="text-blue-700 hover:underline"
+                  to={`/post/${post._id}`}
+                >
+                  Read comments
+                </Link>
+              </div>
+              <p>{post.comments.length} comments</p>
+            </div>
           </div>
-          <div className="border-t px-5 py-3">
-            <h2 className="text-3xl mb-3">{post.title}</h2>
-            <p>{post.body}</p>
-          </div>
-          <div className="border-t px-5 py-1 flex justify-between">
-            <Link
-              className="text-blue-700 hover:underline"
-              to={`/post/${post._id}`}
-            >
-              Read comments
-            </Link>
-            <p>{post.comments.length} comments</p>
-          </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No posts</p>
+      )}
     </div>
   );
 };

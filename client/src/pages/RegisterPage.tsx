@@ -1,45 +1,32 @@
-import React, { useContext, useState } from 'react';
-
-import UserContext from '../context/UserContext';
-import { UserContextType } from '../models/user';
-import { Redirect } from 'react-router';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import { FormEvent, useState } from 'react';
 
 type InputTargetType = {
   value: string;
 };
 
-const LoginPage: React.FC = () => {
-  const { user, setUser } = useContext(UserContext) as UserContextType;
+const RegisterPage: React.FC = () => {
+  const [created, setCreated] = useState(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [errors, setErrors] = useState<Array<string>>([]);
-
-  const submit = (e: React.FormEvent) => {
+  const [errors, setErrors] = useState<string[]>([]);
+  const submit = (e: FormEvent) => {
     e.preventDefault();
     if (username && password) {
-      axios
-        .post('/user/login', {
-          username,
-          password,
-        })
-        .then((res: AxiosResponse) => {
-          typeof setUser === 'function' && setUser(res.data.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      axios.post('/user', { username, password }).then((res) => {
+        if (res?.data) {
+          setCreated(true);
+        }
+      });
     } else {
       if (!username) setErrors((prev) => [...prev, 'Invalid username']);
       if (!password) setErrors((prev) => [...prev, 'Invalid password']);
     }
   };
-
-  if (user) return <Redirect to="/" />;
-
+  if (created) return <p>Account has been created, log in to access</p>;
   return (
-    <>
-      <h2 className="text-4xl mb-5">Login</h2>
+    <div>
+      <h2 className="text-4xl mb-5">Register to Keskustelufoorumi</h2>
       <form
         onSubmit={submit}
         className="flex flex-col content-start"
@@ -73,11 +60,11 @@ const LoginPage: React.FC = () => {
           type="submit"
           className="bg-blue-400 px-2 py-3 uppercase text-sm rounded text-white"
         >
-          Login
+          Register
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

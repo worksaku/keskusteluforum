@@ -32,11 +32,26 @@ const CreatePostPage: React.FC = () => {
   };
   return (
     <div>
-      <h2>Create post</h2>
-      <form onSubmit={submit}>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} />
-        <textarea value={body} onChange={(e) => setBody(e.target.value)} />
-        <button type="submit">Submit</button>
+      <h2 className="text-3xl mb-5">Create post</h2>
+      <form onSubmit={submit} className="flex flex-col">
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="border mb-3 px-2 py-3 rounded"
+          placeholder="Topic"
+        />
+        <textarea
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          className="border mb-3 px-2 py-3 rounded"
+          placeholder="Enter your text here"
+        />
+        <button
+          type="submit"
+          className="bg-blue-400 px-2 py-3 uppercase text-sm rounded text-white"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

@@ -1,7 +1,13 @@
 import { useEffect, useReducer, useState } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
-import { LoginPage, HomePage, CreatePostPage } from './pages';
+import {
+  LoginPage,
+  HomePage,
+  CreatePostPage,
+  PostPage,
+  RegisterPage,
+} from './pages';
 
 import UserContext from './context/UserContext';
 import { UserType } from './models/user';
@@ -39,25 +45,38 @@ const App: React.FC = () => {
               Keskustelufoorumi
             </Link>
             {!!user ? (
-              <button
-                onClick={logout}
-                className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
-              >
-                Logout
-              </button>
+              <div className="flex content-center">
+                <span className="text-white mr-3">{user.username}</span>
+                <button
+                  onClick={logout}
+                  className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
-              <Link
-                to="/login"
-                className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
-              >
-                Login
-              </Link>
+              <div className="flex">
+                <Link
+                  to="/register"
+                  className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white mr-2"
+                >
+                  Register
+                </Link>
+                <Link
+                  to="/login"
+                  className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
+                >
+                  Login
+                </Link>
+              </div>
             )}
           </div>
           <div className="mx-auto max-w-4xl p-5">
             <Switch>
               <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegisterPage} />
               <Route path="/create" component={CreatePostPage} />
+              <Route path="/post/:id" component={PostPage} />
               <Route path="/" component={HomePage} />
             </Switch>
           </div>
