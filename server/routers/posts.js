@@ -5,17 +5,17 @@ const router = new express.Router();
 
 router.get('/posts', async (_, res) => {
   try {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).sort({ updatedAt: -1 });
     res.status(200).send(posts);
   } catch (e) {
-    res.status(404).send();
+    res.status(404).send(e);
   }
 });
 
 router.post('/posts', auth, async (req, res) => {
   const post = new Post({
     ...req.body,
-    author: { username: req.user.username, _id: req.user._id }, // Save only needed information
+    author: req.user.toJSON(),
   });
 
   try {
