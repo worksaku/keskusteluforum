@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Post } from '../components/';
+import { Button } from '../components/ui-components';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { PostType } from '../models/post';
@@ -14,6 +16,8 @@ const PostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
   const { user } = useContext(UserContext);
   const [currentPost, setPost] = useState<PostType | null>(null);
   const [body, setBody] = useState('');
+
+  console.log(props);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,32 +56,22 @@ const PostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
 
   if (!currentPost) return <p>Loading...</p>;
   return (
-    <div>
-      <p>{currentPost.author.username}</p>
-      <h1 className="text-3xl mb-3">{currentPost.title}</h1>
-      <p>{currentPost.body}</p>
-      {currentPost?.comments.map((comment) => (
-        <div key={comment._id}>{comment.body}</div>
-      ))}
+    <>
+      <Post {...currentPost} />
       {user && (
         <div>
           <p>Write comment</p>
-          <form className="flex" onSubmit={submit}>
+          <form onSubmit={submit}>
             <textarea
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              className="border mr-3"
+              className="block w-full border mb-3 py-1 px-3"
             ></textarea>
-            <button
-              type="submit"
-              className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white self-center"
-            >
-              Comment
-            </button>
+            <Button type="submit" text="Comment" />
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

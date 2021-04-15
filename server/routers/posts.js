@@ -26,6 +26,26 @@ router.put('/posts', auth, async (req, res) => {
   }
 });
 
+router.post('/post', auth, async (req, res) => {
+  try {
+    const post = await Post.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        title: req.body.title,
+        body: req.body.body,
+      },
+      {
+        new: true,
+      }
+    );
+
+    await post.save();
+    res.status(200).send(post);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 router.get('/post', async (req, res) => {
   try {
     const post = await Post.findOne({

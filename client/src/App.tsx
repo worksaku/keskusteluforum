@@ -7,7 +7,9 @@ import {
   CreatePostPage,
   PostPage,
   RegisterPage,
+  EditPostPage,
 } from './pages';
+import { Button } from './components/ui-components';
 
 import UserContext from './context/UserContext';
 import { UserType } from './models/user';
@@ -47,12 +49,7 @@ const App: React.FC = () => {
             {!!user ? (
               <div className="flex content-center">
                 <span className="text-white mr-3">{user.username}</span>
-                <button
-                  onClick={logout}
-                  className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
-                >
-                  Logout
-                </button>
+                <Button onClick={logout} text="Logout" />
               </div>
             ) : (
               <div className="flex">
@@ -76,6 +73,7 @@ const App: React.FC = () => {
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/create" component={CreatePostPage} />
+              <Route path="/post/:id/edit" component={EditPostPage} />
               <Route path="/post/:id" component={PostPage} />
               <Route path="/" component={HomePage} />
             </Switch>

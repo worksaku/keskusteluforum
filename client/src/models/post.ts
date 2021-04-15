@@ -4,13 +4,21 @@ export interface PostType {
   body: string;
   createdAt: Date;
   updatedAt: Date;
-  comments: Array<any>;
+  comments: Comment[];
   author: Author;
 }
 
 interface Author {
   _id: string;
   username: string;
+}
+
+export interface Comment {
+  _id: string;
+  body: string;
+  author: Author;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface PostsContextType {
