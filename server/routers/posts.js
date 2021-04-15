@@ -12,7 +12,7 @@ router.get('/posts', async (_, res) => {
   }
 });
 
-router.post('/posts', auth, async (req, res) => {
+router.put('/posts', auth, async (req, res) => {
   const post = new Post({
     ...req.body,
     author: req.user.toJSON(),
@@ -34,6 +34,19 @@ router.get('/post', async (req, res) => {
     res.status(200).send(post);
   } catch (e) {
     res.status(404).send();
+  }
+});
+
+router.delete('/post', auth, async (req, res) => {
+  try {
+    const { deletedCount } = await Post.deleteOne({
+      _id: req.body.id,
+    });
+    if (deletedCount > 0) {
+      res.status(204).send();
+    }
+  } catch (e) {
+    res.status(500).send();
   }
 });
 

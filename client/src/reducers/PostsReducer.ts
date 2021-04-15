@@ -25,6 +25,9 @@ export const PostsReducer = (state: PostType[], action: PostAction) => {
       } else {
         throw new Error();
       }
+    case 'delete':
+      const filtered = state.filter((post) => post._id !== action.payload);
+      return [...filtered];
     default:
       throw new Error();
   }

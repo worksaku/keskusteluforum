@@ -13,7 +13,7 @@ const CreatePostPage: React.FC = () => {
     e.preventDefault();
     if (title && body) {
       axios
-        .post('/posts', {
+        .put('/posts', {
           title,
           body,
         })

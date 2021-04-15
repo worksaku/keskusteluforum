@@ -18,7 +18,7 @@ const PostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
-      .post('/comment', {
+      .put('/comment', {
         id: props.match.params.id,
         body,
       })

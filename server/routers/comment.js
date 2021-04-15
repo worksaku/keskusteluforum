@@ -3,7 +3,7 @@ const Post = require('../models/post');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
-router.post('/comment', auth, async (req, res) => {
+router.put('/comment', auth, async (req, res) => {
   try {
     const post = await Post.findOne({
       _id: req.body.id,

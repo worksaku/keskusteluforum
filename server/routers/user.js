@@ -23,7 +23,7 @@ router.post('/user/login', async (req, res) => {
   }
 });
 
-router.post('/user', async (req, res) => {
+router.put('/user', async (req, res) => {
   try {
     const user = new User(req.body);
     user.save();

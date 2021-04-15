@@ -13,7 +13,7 @@ const RegisterPage: React.FC = () => {
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (username && password) {
-      axios.post('/user', { username, password }).then((res) => {
+      axios.put('/user', { username, password }).then((res) => {
         if (res?.data) {
           setCreated(true);
         }
