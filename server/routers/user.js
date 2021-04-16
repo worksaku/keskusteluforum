@@ -26,7 +26,7 @@ router.post('/user/login', async (req, res) => {
 router.put('/user', async (req, res) => {
   try {
     const user = new User(req.body);
-    user.save();
+    await user.save();
     res.status(201).send(user);
   } catch (e) {
     res.status(401).send();

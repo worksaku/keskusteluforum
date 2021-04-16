@@ -37,7 +37,13 @@ const Comment = (props: CommentType) => {
           props.author.username
         }`}</span>
         {(user?.role === 'admin' || user?._id === props.author._id) &&
-          !editing && <Button text="Edit" onClick={() => setEditing(true)} />}
+          !editing && (
+            <Button
+              text="Edit"
+              onClick={() => setEditing(true)}
+              classes="self-center"
+            />
+          )}
       </div>
       <div className="bg-blue-100 px-3 py-1">
         {!editing ? (
@@ -58,6 +64,11 @@ const Comment = (props: CommentType) => {
             />
             <Button type="submit" text="Save" />
           </form>
+        )}
+        {props.createdAt !== props.updatedAt && (
+          <span className="text-sm text-gray-500">{`Edited: ${new Date(
+            props.updatedAt
+          ).toLocaleString()}`}</span>
         )}
       </div>
     </div>
