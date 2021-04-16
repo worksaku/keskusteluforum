@@ -39,8 +39,8 @@ router.post('/user/logout', auth, async (req, res) => {
       return token.token !== req.token;
     });
     await req.user.save();
-
-    res.json({});
+    res.clearCookie('forum');
+    res.status(200).send();
   } catch (e) {
     res.status(500).send();
   }

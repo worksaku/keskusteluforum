@@ -8,7 +8,7 @@ router.get('/posts', async (_, res) => {
     const posts = await Post.find({}).sort({ updatedAt: -1 });
     res.status(200).send(posts);
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send();
   }
 });
 
@@ -29,7 +29,7 @@ router.put('/posts', auth, async (req, res) => {
 router.post('/post', auth, async (req, res) => {
   try {
     const post = await Post.findOneAndUpdate(
-      { _id: req.body.id },
+      { _id: req.body.id, 'author._id': req.user._id },
       {
         title: req.body.title,
         body: req.body.body,
@@ -42,7 +42,7 @@ router.post('/post', auth, async (req, res) => {
     await post.save();
     res.status(200).send(post);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send();
   }
 });
 
