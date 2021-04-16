@@ -32,7 +32,7 @@ const Comment = (props: CommentType) => {
 
   return (
     <div key={props._id} id={props._id} className="flex flex-col">
-      <div className="bg-blue-200 px-3 py-1 flex justify-between">
+      <div className="bg-red-200 px-3 py-1 flex justify-between">
         <span>{`${new Date(props.createdAt).toLocaleString()} by ${
           props.author.username
         }`}</span>
@@ -45,7 +45,7 @@ const Comment = (props: CommentType) => {
             />
           )}
       </div>
-      <div className="bg-blue-100 px-3 py-1">
+      <div className="bg-red-100 px-3 py-1">
         {!editing ? (
           <pre className="font-sans whitespace-pre-line text-left">
             {props.body}

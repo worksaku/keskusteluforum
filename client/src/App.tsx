@@ -45,7 +45,7 @@ const App: React.FC = () => {
     <UserContext.Provider value={{ user, setUser }}>
       <PostsContext.Provider value={{ posts, dispatchPosts }}>
         <BrowserRouter>
-          <div className="p-5 bg-blue-500 flex content-center justify-between">
+          <div className="p-5 bg-red-500 flex content-center justify-between">
             <Link className="text-white" to="/">
               Keskustelufoorumi
             </Link>
@@ -58,13 +58,13 @@ const App: React.FC = () => {
               <div className="flex">
                 <Link
                   to="/register"
-                  className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white mr-2"
+                  className="bg-red-400 px-2 py-1 uppercase text-sm rounded text-white mr-2"
                 >
                   Register
                 </Link>
                 <Link
                   to="/login"
-                  className="bg-blue-400 px-2 py-1 uppercase text-sm rounded text-white"
+                  className="bg-red-400 px-2 py-1 uppercase text-sm rounded text-white"
                 >
                   Login
                 </Link>

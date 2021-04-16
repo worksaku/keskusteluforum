@@ -48,7 +48,7 @@ const CreatePostPage: React.FC = () => {
         />
         <button
           type="submit"
-          className="bg-blue-400 px-2 py-3 uppercase text-sm rounded text-white"
+          className="bg-red-400 px-2 py-3 uppercase text-sm rounded text-white"
         >
           Submit
         </button>

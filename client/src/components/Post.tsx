@@ -38,7 +38,7 @@ const Post = (props: PostComponentProps) => {
 
   return (
     <div key={props._id} className="flex flex-col mb-5">
-      <div className="bg-blue-700 px-3 py-1 flex justify-between">
+      <div className="bg-red-700 px-3 py-1 flex justify-between">
         <Link to={`/post/${props._id}`} className="text-white text-xl">
           {props.title}
         </Link>
@@ -55,7 +55,7 @@ const Post = (props: PostComponentProps) => {
           )}
         </div>
       </div>
-      <div className="bg-blue-400 px-3 py-1">
+      <div className="bg-red-400 px-3 py-1">
         <span className="text-white">
           {new Date(props.createdAt).toLocaleString() +
             ' by ' +
@@ -67,7 +67,7 @@ const Post = (props: PostComponentProps) => {
           {props.body}
         </pre>
       </div>
-      <div className="bg-blue-500 py-2 px-3 text-white">
+      <div className="bg-red-500 py-2 px-3 text-white">
         Comments: {props.comments.length}
       </div>
       {props.comments.map((comment) => (
