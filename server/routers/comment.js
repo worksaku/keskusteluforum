@@ -19,4 +19,25 @@ router.put('/comment', auth, async (req, res) => {
   }
 });
 
+router.post('/comment', auth, async (req, res) => {
+  try {
+    const post = await Post.findOneAndUpdate(
+      { 'comments._id': req.body.id, 'comments.author._id': req.user._id },
+      {
+        $set: {
+          'comments.$.body': req.body.body,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    await post.save();
+    res.status(200).send(post);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 module.exports = router;

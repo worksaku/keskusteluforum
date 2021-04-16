@@ -1,16 +1,67 @@
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import PostsContext from '../context/PostsContext';
+import UserContext from '../context/UserContext';
 import { Comment as CommentType } from '../models/post';
-// import { Button } from './ui-components';
+import { Button } from './ui-components';
 
-const Comment = (props: CommentType) => (
-  <div key={props._id} id={props._id} className="flex flex-col">
-    <div className="bg-blue-200 px-3 py-1 flex justify-between">
-      <span>{`${new Date(props.createdAt).toLocaleString()} by ${
-        props.author.username
-      }`}</span>
-      {/* {<Button text="Edit" />} */}
+const Comment = (props: CommentType) => {
+  const [editing, setEditing] = useState(false);
+  const { user } = useContext(UserContext);
+  const [body, setBody] = useState(props.body);
+  const { dispatchPosts } = useContext(PostsContext);
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (body) {
+      axios
+        .post('/comment', {
+          id: props._id,
+          body,
+        })
+        .then((res) => {
+          if (res.data)
+            dispatchPosts({
+              type: 'edit',
+              payload: res.data,
+            });
+          setEditing(false);
+        });
+    }
+  };
+
+  return (
+    <div key={props._id} id={props._id} className="flex flex-col">
+      <div className="bg-blue-200 px-3 py-1 flex justify-between">
+        <span>{`${new Date(props.createdAt).toLocaleString()} by ${
+          props.author.username
+        }`}</span>
+        {(user?.role === 'admin' || user?._id === props.author._id) &&
+          !editing && <Button text="Edit" onClick={() => setEditing(true)} />}
+      </div>
+      <div className="bg-blue-100 px-3 py-1">
+        {!editing ? (
+          <pre className="font-sans whitespace-pre-line text-left">
+            {props.body}
+          </pre>
+        ) : (
+          <form onSubmit={submit}>
+            <textarea
+              value={body}
+              className="block w-full mb-2"
+              onChange={(e) => setBody(e.target.value)}
+            />
+            <Button
+              text="Cancel"
+              onClick={() => setEditing(false)}
+              classes="mr-2"
+            />
+            <Button type="submit" text="Save" />
+          </form>
+        )}
+      </div>
     </div>
-    <div className="bg-blue-100 px-3 py-1">{props.body}</div>
-  </div>
-);
+  );
+};
 
 export default Comment;
