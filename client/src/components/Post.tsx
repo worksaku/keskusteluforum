@@ -57,7 +57,9 @@ const Post = (props: PostComponentProps) => {
       </div>
       <div className="bg-blue-400 px-3 py-1">
         <span className="text-white">
-          {props.author.username} {new Date(props.createdAt).toString()}
+          {new Date(props.createdAt).toLocaleString() +
+            ' by ' +
+            props.author.username}
         </span>
       </div>
       <div className="py-2 px-5 border-l border-r text-justify">

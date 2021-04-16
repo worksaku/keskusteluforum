@@ -17,8 +17,6 @@ const PostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
   const [currentPost, setPost] = useState<PostType | null>(null);
   const [body, setBody] = useState('');
 
-  console.log(props);
-
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     axios

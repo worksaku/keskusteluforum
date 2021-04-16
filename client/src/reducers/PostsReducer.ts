@@ -21,6 +21,14 @@ export const PostsReducer = (state: PostType[], action: PostAction) => {
       );
       if (itemIndex >= 0) {
         state[itemIndex] = action.payload;
+        state.sort((a, b) =>
+          a._id === action.payload._id
+            ? -1
+            : b._id === action.payload._id
+            ? 1
+            : 0
+        );
+        console.log(state);
         return [...state];
       } else {
         throw new Error();
