@@ -24,7 +24,10 @@ const LoginPage: React.FC = () => {
           password,
         })
         .then((res: AxiosResponse) => {
-          typeof setUser === 'function' && setUser(res.data.user);
+          if (typeof setUser === 'function') {
+            setUser(res.data.user);
+            localStorage.setItem('user', JSON.stringify(res.data.user));
+          }
         })
         .catch((err) => {
           console.log(err);

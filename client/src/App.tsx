@@ -28,6 +28,9 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    const isLoggedIn = localStorage.getItem('user');
+    if (isLoggedIn) setUser(JSON.parse(isLoggedIn));
+
     axios.get('/posts').then((res) => {
       if (res?.data) {
         dispatchPosts({
