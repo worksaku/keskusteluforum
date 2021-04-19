@@ -13,7 +13,7 @@ const PostList: React.FC = () => {
   const history = useHistory();
 
   return (
-    <div>
+    <div data-testid="postList-component">
       {user && (
         <Button
           onClick={() => history.push('/create')}

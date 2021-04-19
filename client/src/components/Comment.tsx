@@ -31,7 +31,12 @@ const Comment = (props: CommentType) => {
   };
 
   return (
-    <div key={props._id} id={props._id} className="flex flex-col">
+    <div
+      data-testid="comment-component"
+      key={props._id}
+      id={props._id}
+      className="flex flex-col"
+    >
       <div className="bg-red-200 px-3 py-1 flex justify-between">
         <span>{`${new Date(props.createdAt).toLocaleString()} by ${
           props.author.username

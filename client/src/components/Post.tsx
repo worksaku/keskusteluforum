@@ -1,20 +1,13 @@
 import axios from 'axios';
 import { useContext } from 'react';
-import {
-  Link,
-  RouteComponentProps,
-  useHistory,
-  withRouter,
-} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Comment } from '.';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { PostType } from '../models/post';
 import { Button } from './ui-components';
 
-interface PostComponentProps extends PostType, RouteComponentProps {}
-
-const Post = (props: PostComponentProps) => {
+const Post = (props: PostType) => {
   const { user } = useContext(UserContext);
   const { dispatchPosts } = useContext(PostsContext);
   const history = useHistory();
@@ -37,7 +30,11 @@ const Post = (props: PostComponentProps) => {
   };
 
   return (
-    <div key={props._id} className="flex flex-col mb-5">
+    <div
+      data-testid="post-component"
+      key={props._id}
+      className="flex flex-col mb-5"
+    >
       <div className="bg-red-700 px-3 py-1 flex justify-between">
         <Link to={`/post/${props._id}`} className="text-white text-xl">
           {props.title}
@@ -77,4 +74,4 @@ const Post = (props: PostComponentProps) => {
   );
 };
 
-export default withRouter(Post);
+export default Post;
