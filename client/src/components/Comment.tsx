@@ -4,7 +4,7 @@ import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { Comment as CommentType, PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
-import { Button } from './ui-components';
+import { Button } from './';
 
 const Comment = (props: CommentType) => {
   const [editing, setEditing] = useState(false);
@@ -31,6 +31,10 @@ const Comment = (props: CommentType) => {
     }
   };
 
+  const canEdit: boolean = !!(
+    user?.role === 'admin' || user?._id === props.author._id
+  );
+
   return (
     <div
       data-testid="comment-component"
@@ -42,14 +46,13 @@ const Comment = (props: CommentType) => {
         <span>{`${new Date(props.createdAt).toLocaleString()} by ${
           props.author.username
         }`}</span>
-        {(user?.role === 'admin' || user?._id === props.author._id) &&
-          !editing && (
-            <Button
-              text="Edit"
-              onClick={() => setEditing(true)}
-              classes="self-center"
-            />
-          )}
+        {canEdit && !editing && (
+          <Button
+            text="Edit"
+            onClick={() => setEditing(true)}
+            classes="self-center"
+          />
+        )}
       </div>
       <div className="bg-red-100 px-3 py-1">
         {!editing ? (

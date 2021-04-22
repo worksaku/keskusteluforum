@@ -6,7 +6,7 @@ import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
-import { Button } from './ui-components';
+import { Button } from './';
 
 const Post = (props: PostType) => {
   const { user } = useContext(UserContext);
@@ -30,6 +30,10 @@ const Post = (props: PostType) => {
       });
   };
 
+  const canEdit: boolean = !!(
+    user?.role === 'admin' || props.author._id === user?._id
+  );
+
   return (
     <div
       data-testid="post-component"
@@ -41,14 +45,14 @@ const Post = (props: PostType) => {
           {props.title}
         </Link>
         <div>
-          {(user?.role === 'admin' || props.author._id === user?._id) && (
+          {canEdit && (
             <Button
               classes="mr-1"
               text="Edit"
               onClick={() => history.push(`/post/${props._id}/edit`)}
             />
           )}
-          {(user?.role === 'admin' || props.author._id === user?._id) && (
+          {canEdit && (
             <Button text="Delete" onClick={() => deletePost(props._id)} />
           )}
         </div>

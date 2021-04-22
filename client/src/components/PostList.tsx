@@ -4,7 +4,7 @@ import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { PostsContextType, PostType } from '../models/post';
 import { UserContextType } from '../models/user';
-import { Button } from '../components/ui-components';
+import { Button } from '../components';
 import { Post } from '../components';
 
 const PostList: React.FC = () => {

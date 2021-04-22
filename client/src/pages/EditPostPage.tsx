@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useState } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router';
-import { Button } from '../components/ui-components';
+import { Button } from '../components';
 import PostsContext from '../context/PostsContext';
 import { PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';

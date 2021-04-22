@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Post } from '../components/';
-import { Button } from '../components/ui-components';
+import { Button } from '../components';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { PostType } from '../models/post';

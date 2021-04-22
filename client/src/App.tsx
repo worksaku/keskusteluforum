@@ -10,7 +10,7 @@ import {
   RegisterPage,
   EditPostPage,
 } from './pages';
-import { Button } from './components/ui-components';
+import { Button } from './components';
 
 import UserContext from './context/UserContext';
 import { UserType } from './models/user';
