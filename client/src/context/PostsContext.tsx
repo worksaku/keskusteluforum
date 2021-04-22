@@ -3,7 +3,7 @@ import { PostsContextType } from '../models/post';
 
 const PostsContext = createContext<PostsContextType>({
   posts: [],
-  dispatchPosts: null,
+  dispatch: () => null,
 });
 
 export default PostsContext;

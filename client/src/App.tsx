@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { Types } from './reducers/PostsReducer';
 
 import {
   LoginPage,
@@ -19,7 +20,7 @@ import { PostsReducer } from './reducers/PostsReducer';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<UserType | null>(null);
-  const [posts, dispatchPosts] = useReducer(PostsReducer, []);
+  const [posts, dispatch] = useReducer(PostsReducer, []);
 
   const logout = () => {
     axios.post('/user/logout').finally(() => {
@@ -33,8 +34,8 @@ const App: React.FC = () => {
 
     axios.get('/posts').then((res) => {
       if (res?.data) {
-        dispatchPosts({
-          type: 'set',
+        dispatch({
+          type: Types.Set,
           payload: res.data,
         });
       }
@@ -43,7 +44,7 @@ const App: React.FC = () => {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <PostsContext.Provider value={{ posts, dispatchPosts }}>
+      <PostsContext.Provider value={{ posts, dispatch }}>
         <BrowserRouter>
           <div className="p-5 bg-red-500 flex content-center justify-between">
             <Link className="text-white" to="/">

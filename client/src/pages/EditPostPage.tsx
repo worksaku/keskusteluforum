@@ -4,9 +4,10 @@ import { Redirect, RouteComponentProps } from 'react-router';
 import { Button } from '../components/ui-components';
 import PostsContext from '../context/PostsContext';
 import { PostType } from '../models/post';
+import { Types } from '../reducers/PostsReducer';
 
 const EditPostPage: React.FC<RouteComponentProps<any>> = (props) => {
-  const { posts, dispatchPosts } = useContext(PostsContext);
+  const { posts, dispatch } = useContext(PostsContext);
   const contextPost: PostType | undefined = posts.find(
     (post) => post._id === props.match.params.id
   );
@@ -25,8 +26,8 @@ const EditPostPage: React.FC<RouteComponentProps<any>> = (props) => {
         })
         .then((res) => {
           if (res.data) {
-            dispatchPosts({
-              type: 'edit',
+            dispatch({
+              type: Types.Edit,
               payload: res.data,
             });
           }

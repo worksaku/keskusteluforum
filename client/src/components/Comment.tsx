@@ -3,13 +3,14 @@ import React, { useContext, useState } from 'react';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { Comment as CommentType } from '../models/post';
+import { Types } from '../reducers/PostsReducer';
 import { Button } from './ui-components';
 
 const Comment = (props: CommentType) => {
   const [editing, setEditing] = useState(false);
   const { user } = useContext(UserContext);
   const [body, setBody] = useState(props.body);
-  const { dispatchPosts } = useContext(PostsContext);
+  const { dispatch } = useContext(PostsContext);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,8 +22,8 @@ const Comment = (props: CommentType) => {
         })
         .then((res) => {
           if (res.data)
-            dispatchPosts({
-              type: 'edit',
+            dispatch({
+              type: Types.Edit,
               payload: res.data,
             });
           setEditing(false);

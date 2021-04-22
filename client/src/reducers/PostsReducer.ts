@@ -1,21 +1,39 @@
 import { PostType } from '../models/post';
 
-type PostAction = {
-  type: string;
-  payload: any;
+type ActionMap<M extends { [index: string]: any }> = {
+  [Key in keyof M]: M[Key] extends undefined
+    ? {
+        type: Key;
+      }
+    : {
+        type: Key;
+        payload: M[Key];
+      };
 };
 
-export const PostsReducer = (state: PostType[], action: PostAction) => {
+export enum Types {
+  Add = 'add',
+  Set = 'set',
+  Edit = 'edit',
+  Delete = 'delete',
+}
+
+export type PostPayload = {
+  [Types.Add]: PostType;
+  [Types.Set]: PostType[];
+  [Types.Edit]: PostType;
+  [Types.Delete]: string;
+};
+
+export type PostActions = ActionMap<PostPayload>[keyof ActionMap<PostPayload>];
+
+export const PostsReducer = (state: PostType[], action: PostActions) => {
   switch (action.type) {
-    case 'add':
+    case Types.Add:
       return [{ ...action.payload }, ...state];
-    case 'set':
-      if (Array.isArray(action.payload)) {
-        return [...action.payload];
-      } else {
-        throw new Error();
-      }
-    case 'edit':
+    case Types.Set:
+      return [...action.payload];
+    case Types.Edit:
       const itemIndex = state.findIndex(
         (post) => post._id === action.payload._id
       );
@@ -28,12 +46,11 @@ export const PostsReducer = (state: PostType[], action: PostAction) => {
             ? 1
             : 0
         );
-        console.log(state);
         return [...state];
       } else {
         throw new Error();
       }
-    case 'delete':
+    case Types.Delete:
       const filtered = state.filter((post) => post._id !== action.payload);
       return [...filtered];
     default:

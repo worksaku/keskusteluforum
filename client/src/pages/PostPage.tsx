@@ -6,13 +6,14 @@ import { Button } from '../components/ui-components';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { PostType } from '../models/post';
+import { Types } from '../reducers/PostsReducer';
 
 type MatchParams = {
   id?: string;
 };
 
 const PostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
-  const { posts, dispatchPosts } = useContext(PostsContext);
+  const { posts, dispatch } = useContext(PostsContext);
   const { user } = useContext(UserContext);
   const [currentPost, setPost] = useState<PostType | null>(null);
   const [body, setBody] = useState('');
@@ -26,8 +27,8 @@ const PostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
       })
       .then((res: any) => {
         if (res?.data) {
-          dispatchPosts({
-            type: 'edit',
+          dispatch({
+            type: Types.Edit,
             payload: res.data,
           });
         }

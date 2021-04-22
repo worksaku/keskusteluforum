@@ -2,11 +2,12 @@ import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import PostsContext from '../context/PostsContext';
+import { Types } from '../reducers/PostsReducer';
 
 const CreatePostPage: React.FC = () => {
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
-  const { dispatchPosts } = useContext(PostsContext);
+  const { dispatch } = useContext(PostsContext);
   const history = useHistory();
 
   const submit = (e: React.FormEvent) => {
@@ -19,8 +20,8 @@ const CreatePostPage: React.FC = () => {
         })
         .then((res: AxiosResponse) => {
           if (res?.data) {
-            dispatchPosts({
-              type: 'add',
+            dispatch({
+              type: Types.Add,
               payload: res.data,
             });
           }

@@ -5,11 +5,12 @@ import { Comment } from '.';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { PostType } from '../models/post';
+import { Types } from '../reducers/PostsReducer';
 import { Button } from './ui-components';
 
 const Post = (props: PostType) => {
   const { user } = useContext(UserContext);
-  const { dispatchPosts } = useContext(PostsContext);
+  const { dispatch } = useContext(PostsContext);
   const history = useHistory();
 
   const deletePost = (id: string) => {
@@ -21,8 +22,8 @@ const Post = (props: PostType) => {
       })
       .then((res) => {
         if (res.status === 204) {
-          dispatchPosts({
-            type: 'delete',
+          dispatch({
+            type: Types.Delete,
             payload: id,
           });
         }

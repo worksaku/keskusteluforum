@@ -1,3 +1,6 @@
+import { Dispatch } from 'react';
+import { PostActions } from '../reducers/PostsReducer';
+
 export interface PostType {
   _id: string;
   title: string;
@@ -22,6 +25,6 @@ export interface Comment {
 }
 
 export interface PostsContextType {
-  posts: Array<PostType>;
-  dispatchPosts: any;
+  posts: PostType[];
+  dispatch: Dispatch<PostActions>;
 }
