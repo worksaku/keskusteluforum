@@ -21,6 +21,7 @@ router.put('/comment', auth, async (req, res) => {
 
 router.post('/comment', auth, async (req, res) => {
   try {
+    // Should check if author or admin
     const post = await Post.findOneAndUpdate(
       { 'comments._id': req.body.id, 'comments.author._id': req.user._id },
       {
