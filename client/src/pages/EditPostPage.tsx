@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useState } from 'react';
-import { Redirect, RouteComponentProps } from 'react-router';
+import { Redirect, RouteComponentProps, useHistory } from 'react-router';
 import { Button } from '../components';
 import PostsContext from '../context/PostsContext';
 import { PostType } from '../models/post';
@@ -16,6 +16,7 @@ const EditPostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
     (post) => post._id === props.match.params.id
   );
   const [editablePost, setPost] = useState<PostType | undefined>(contextPost);
+  const history = useHistory();
 
   if (!editablePost) return <Redirect to={`/`} />;
 
@@ -34,6 +35,7 @@ const EditPostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
               type: Types.Edit,
               payload: res.data,
             });
+            history.push(`/post/${res.data._id}`);
           }
         });
     }
