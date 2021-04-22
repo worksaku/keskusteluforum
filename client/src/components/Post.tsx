@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Comment } from '.';
@@ -20,7 +20,7 @@ const Post = (props: PostType) => {
           id,
         },
       })
-      .then((res) => {
+      .then((res: AxiosResponse<PostType>) => {
         if (res.status === 204) {
           dispatch({
             type: Types.Delete,

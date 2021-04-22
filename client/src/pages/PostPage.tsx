@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Post } from '../components/';
@@ -25,7 +25,7 @@ const PostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
         id: props.match.params.id,
         body,
       })
-      .then((res: any) => {
+      .then((res: AxiosResponse<PostType>) => {
         if (res?.data) {
           dispatch({
             type: Types.Edit,

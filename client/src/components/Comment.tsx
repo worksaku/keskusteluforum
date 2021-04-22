@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useState } from 'react';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
-import { Comment as CommentType } from '../models/post';
+import { Comment as CommentType, PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
 import { Button } from './ui-components';
 
@@ -20,7 +20,7 @@ const Comment = (props: CommentType) => {
           id: props._id,
           body,
         })
-        .then((res) => {
+        .then((res: AxiosResponse<PostType>) => {
           if (res.data)
             dispatch({
               type: Types.Edit,

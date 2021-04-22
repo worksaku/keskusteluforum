@@ -15,8 +15,9 @@ import { Button } from './components/ui-components';
 import UserContext from './context/UserContext';
 import { UserType } from './models/user';
 import PostsContext from './context/PostsContext';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { PostsReducer } from './reducers/PostsReducer';
+import { PostType } from './models/post';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<UserType | null>(null);
@@ -32,7 +33,7 @@ const App: React.FC = () => {
     const isLoggedIn = localStorage.getItem('user');
     if (isLoggedIn) setUser(JSON.parse(isLoggedIn));
 
-    axios.get('/posts').then((res) => {
+    axios.get('/posts').then((res: AxiosResponse<PostType[]>) => {
       if (res?.data) {
         dispatch({
           type: Types.Set,

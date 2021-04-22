@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { FormEvent, useState } from 'react';
 
 type InputTargetType = {
@@ -13,7 +13,7 @@ const RegisterPage: React.FC = () => {
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (username && password) {
-      axios.put('/user', { username, password }).then((res) => {
+      axios.put('/user', { username, password }).then((res: AxiosResponse) => {
         if (res?.data) {
           setCreated(true);
         }

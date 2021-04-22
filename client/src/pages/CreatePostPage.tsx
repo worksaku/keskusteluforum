@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import PostsContext from '../context/PostsContext';
+import { PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
 
 const CreatePostPage: React.FC = () => {
@@ -18,7 +19,7 @@ const CreatePostPage: React.FC = () => {
           title,
           body,
         })
-        .then((res: AxiosResponse) => {
+        .then((res: AxiosResponse<PostType>) => {
           if (res?.data) {
             dispatch({
               type: Types.Add,

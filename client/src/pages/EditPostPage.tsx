@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useState } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router';
 import { Button } from '../components/ui-components';
@@ -6,7 +6,11 @@ import PostsContext from '../context/PostsContext';
 import { PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
 
-const EditPostPage: React.FC<RouteComponentProps<any>> = (props) => {
+type MatchParams = {
+  id?: string;
+};
+
+const EditPostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
   const { posts, dispatch } = useContext(PostsContext);
   const contextPost: PostType | undefined = posts.find(
     (post) => post._id === props.match.params.id
@@ -24,7 +28,7 @@ const EditPostPage: React.FC<RouteComponentProps<any>> = (props) => {
           title: editablePost.title,
           body: editablePost.body,
         })
-        .then((res) => {
+        .then((res: AxiosResponse<PostType>) => {
           if (res.data) {
             dispatch({
               type: Types.Edit,
