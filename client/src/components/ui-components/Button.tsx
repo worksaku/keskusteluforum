@@ -1,6 +1,11 @@
-import React from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
-const Button: React.FC<any> = ({ text, classes, ...rest }) => {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  classes?: string;
+  text: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ text, classes, ...rest }) => {
   return (
     <button
       data-testid="button-component"

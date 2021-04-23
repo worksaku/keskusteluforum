@@ -5,8 +5,8 @@ export interface PostType {
   _id: string;
   title: string;
   body: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   comments: Comment[];
   author: Author;
 }
@@ -20,8 +20,8 @@ export interface Comment {
   _id: string;
   body: string;
   author: Author;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface PostsContextType {

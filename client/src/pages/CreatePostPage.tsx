@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
+import { TextField, Button, TextArea } from '../components';
 import PostsContext from '../context/PostsContext';
 import { PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
@@ -10,6 +11,11 @@ const CreatePostPage: React.FC = () => {
   const [body, setBody] = useState<string>('');
   const { dispatch } = useContext(PostsContext);
   const history = useHistory();
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+  const handleBodyChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setBody(e.target.value);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,24 +42,19 @@ const CreatePostPage: React.FC = () => {
     <div>
       <h2 className="text-3xl mb-5">Create post</h2>
       <form onSubmit={submit} className="flex flex-col">
-        <input
+        <TextField
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border mb-3 px-2 py-3 rounded"
+          onChange={handleTitleChange}
+          classes="mb-3"
           placeholder="Topic"
         />
-        <textarea
+        <TextArea
           value={body}
-          onChange={(e) => setBody(e.target.value)}
+          onChange={handleBodyChange}
           className="border mb-3 px-2 py-3 rounded"
           placeholder="Enter your text here"
         />
-        <button
-          type="submit"
-          className="bg-red-400 px-2 py-3 uppercase text-sm rounded text-white"
-        >
-          Submit
-        </button>
+        <Button type="submit" text="Submit" />
       </form>
     </div>
   );

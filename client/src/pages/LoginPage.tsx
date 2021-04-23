@@ -1,16 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 
 import UserContext from '../context/UserContext';
-import { UserContextType } from '../models/user';
 import { Redirect } from 'react-router';
 import axios, { AxiosResponse } from 'axios';
-
-type InputTargetType = {
-  value: string;
-};
+import { Button, TextField } from '../components';
 
 const LoginPage: React.FC = () => {
-  const { user, setUser } = useContext(UserContext) as UserContextType;
+  const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Array<string>>([]);
@@ -38,6 +34,13 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const resetErrors = () => setErrors([]);
+
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value);
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value);
+
   if (user) return <Redirect to="/" />;
 
   return (
@@ -46,38 +49,29 @@ const LoginPage: React.FC = () => {
       <form
         onSubmit={submit}
         className="flex flex-col content-start"
-        onChange={() => setErrors([])}
+        onChange={resetErrors}
       >
         {errors.map((err) => (
           <p key={err} className="text-red mb-3">
             {err}
           </p>
         ))}
-        <input
+        <TextField
           name="username"
           value={username}
-          onChange={(e: React.ChangeEvent<InputTargetType>) =>
-            setUsername(e.target.value)
-          }
-          className="border mb-3 px-2 py-3 rounded"
+          onChange={handleUsernameChange}
+          classes="mb-3"
           placeholder="Username"
         />
-        <input
+        <TextField
           name="password"
           type="password"
           value={password}
-          onChange={(e: React.ChangeEvent<InputTargetType>) =>
-            setPassword(e.target.value)
-          }
-          className="border mb-3 px-2 py-3 rounded"
+          onChange={handlePasswordChange}
+          classes="mb-3"
           placeholder="Password"
         />
-        <button
-          type="submit"
-          className="bg-red-400 px-2 py-3 uppercase text-sm rounded text-white"
-        >
-          Login
-        </button>
+        <Button type="submit" text="Login" />
       </form>
     </>
   );

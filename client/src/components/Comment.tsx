@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import PostsContext from '../context/PostsContext';
 import UserContext from '../context/UserContext';
 import { Comment as CommentType, PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
-import { Button } from './';
+import { Button, TextArea } from './';
 
 const Comment = (props: CommentType) => {
   const [editing, setEditing] = useState(false);
@@ -31,6 +31,10 @@ const Comment = (props: CommentType) => {
     }
   };
 
+  const toggleEditing = () => setEditing((prev) => !prev);
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setBody(e.target.value);
+
   const canEdit: boolean = !!(
     user?.role === 'admin' || user?._id === props.author._id
   );
@@ -47,11 +51,7 @@ const Comment = (props: CommentType) => {
           props.author.username
         }`}</span>
         {canEdit && !editing && (
-          <Button
-            text="Edit"
-            onClick={() => setEditing(true)}
-            classes="self-center"
-          />
+          <Button text="Edit" onClick={toggleEditing} classes="self-center" />
         )}
       </div>
       <div className="bg-red-100 px-3 py-1">
@@ -61,16 +61,12 @@ const Comment = (props: CommentType) => {
           </pre>
         ) : (
           <form onSubmit={submit}>
-            <textarea
+            <TextArea
               value={body}
               className="block w-full mb-2"
-              onChange={(e) => setBody(e.target.value)}
+              onChange={handleTextAreaChange}
             />
-            <Button
-              text="Cancel"
-              onClick={() => setEditing(false)}
-              classes="mr-2"
-            />
+            <Button text="Cancel" onClick={toggleEditing} classes="mr-2" />
             <Button type="submit" text="Save" />
           </form>
         )}

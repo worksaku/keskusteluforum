@@ -12,14 +12,12 @@ const PostList: React.FC = () => {
   const { user } = useContext<UserContextType>(UserContext);
   const history = useHistory();
 
+  const goToCreatePage = () => history.push('/create');
+
   return (
     <div data-testid="postList-component">
       {user && (
-        <Button
-          onClick={() => history.push('/create')}
-          classes="mb-5"
-          text="Create post"
-        />
+        <Button onClick={goToCreatePage} classes="mb-5" text="Create post" />
       )}
       {posts?.length ? (
         posts.map((post: PostType) => <Post key={post._id} {...post} />)

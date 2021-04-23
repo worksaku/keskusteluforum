@@ -1,9 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { FormEvent, useState } from 'react';
-
-type InputTargetType = {
-  value: string;
-};
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { Button, TextField } from '../components';
 
 const RegisterPage: React.FC = () => {
   const [created, setCreated] = useState(false);
@@ -23,6 +20,12 @@ const RegisterPage: React.FC = () => {
       if (!password) setErrors((prev) => [...prev, 'Invalid password']);
     }
   };
+  const resetErrors = () => setErrors([]);
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value);
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value);
+
   if (created) return <p>Account has been created, log in to access</p>;
   return (
     <div>
@@ -30,38 +33,29 @@ const RegisterPage: React.FC = () => {
       <form
         onSubmit={submit}
         className="flex flex-col content-start"
-        onChange={() => setErrors([])}
+        onChange={resetErrors}
       >
         {errors.map((err) => (
           <p key={err} className="text-red mb-3">
             {err}
           </p>
         ))}
-        <input
+        <TextField
           name="username"
           value={username}
-          onChange={(e: React.ChangeEvent<InputTargetType>) =>
-            setUsername(e.target.value)
-          }
-          className="border mb-3 px-2 py-3 rounded"
+          onChange={handleUsernameChange}
+          classes="mb-3"
           placeholder="Username"
         />
-        <input
+        <TextField
           name="password"
           type="password"
           value={password}
-          onChange={(e: React.ChangeEvent<InputTargetType>) =>
-            setPassword(e.target.value)
-          }
-          className="border mb-3 px-2 py-3 rounded"
+          onChange={handlePasswordChange}
+          classes="mb-3"
           placeholder="Password"
         />
-        <button
-          type="submit"
-          className="bg-red-400 px-2 py-3 uppercase text-sm rounded text-white"
-        >
-          Register
-        </button>
+        <Button type="submit" text="Register" />
       </form>
     </div>
   );

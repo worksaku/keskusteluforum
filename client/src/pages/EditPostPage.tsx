@@ -1,19 +1,16 @@
 import axios, { AxiosResponse } from 'axios';
-import React, { useContext, useState } from 'react';
-import { Redirect, RouteComponentProps, useHistory } from 'react-router';
-import { Button } from '../components';
+import React, { ChangeEvent, useContext, useState } from 'react';
+import { Redirect, useHistory, useParams } from 'react-router';
+import { Button, TextArea, TextField } from '../components';
 import PostsContext from '../context/PostsContext';
 import { PostType } from '../models/post';
 import { Types } from '../reducers/PostsReducer';
 
-type MatchParams = {
-  id?: string;
-};
-
-const EditPostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
+const EditPostPage: React.FC = () => {
   const { posts, dispatch } = useContext(PostsContext);
+  const { id } = useParams<{ id: string }>();
   const contextPost: PostType | undefined = posts.find(
-    (post) => post._id === props.match.params.id
+    (post) => post._id === id
   );
   const [editablePost, setPost] = useState<PostType | undefined>(contextPost);
   const history = useHistory();
@@ -41,19 +38,23 @@ const EditPostPage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
     }
   };
 
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setPost({ ...editablePost, title: e.target.value });
+  const handleBodyChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setPost({ ...editablePost, body: e.target.value });
+
   return (
     <form onSubmit={submit} className="flex flex-col">
-      <input
-        type="text"
+      <TextField
         value={editablePost.title}
-        className="border mb-3 px-2 py-3 rounded"
-        onChange={(e) => setPost({ ...editablePost, title: e.target.value })}
+        classes="mb-3"
+        onChange={handleTitleChange}
       />
-      <textarea
+      <TextArea
         value={editablePost.body}
         className="border mb-3 px-2 py-3 rounded"
         rows={10}
-        onChange={(e) => setPost({ ...editablePost, body: e.target.value })}
+        onChange={handleBodyChange}
       />
       <Button type="submit" text="Save" />
     </form>

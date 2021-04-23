@@ -13,22 +13,24 @@ const Post = (props: PostType) => {
   const { dispatch } = useContext(PostsContext);
   const history = useHistory();
 
-  const deletePost = (id: string) => {
+  const deletePost = () => {
     axios
       .delete('/post', {
         data: {
-          id,
+          id: props._id,
         },
       })
       .then((res: AxiosResponse<PostType>) => {
         if (res.status === 204) {
           dispatch({
             type: Types.Delete,
-            payload: id,
+            payload: props._id,
           });
         }
       });
   };
+
+  const goEditPage = () => history.push(`/post/${props._id}/edit`);
 
   const canEdit: boolean = !!(
     user?.role === 'admin' || props.author._id === user?._id
@@ -46,14 +48,10 @@ const Post = (props: PostType) => {
         </Link>
         <div>
           {canEdit && (
-            <Button
-              classes="mr-1"
-              text="Edit"
-              onClick={() => history.push(`/post/${props._id}/edit`)}
-            />
-          )}
-          {canEdit && (
-            <Button text="Delete" onClick={() => deletePost(props._id)} />
+            <>
+              <Button classes="mr-1" text="Edit" onClick={goEditPage} />
+              <Button text="Delete" onClick={deletePost} />
+            </>
           )}
         </div>
       </div>
