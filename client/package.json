@@ -1,10 +1,8 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://127.0.0.1:8080",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.1.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -12,14 +10,11 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.1"
+    "react-scripts": "4.0.3"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "webpack": "webpack",
+    "start": "webpack serve"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +35,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
@@ -47,8 +46,18 @@
     "@types/react-dom": "^17.0.3",
     "@types/react-router-dom": "^5.1.7",
     "autoprefixer": "^9.8.6",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.4",
+    "html-webpack-plugin": "^5.3.1",
     "postcss": "^7.0.35",
+    "postcss-loader": "^5.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "style-loader": "^2.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0",
-    "typescript": "^4.2.3"
+    "ts-loader": "^9.1.1",
+    "typescript": "^4.2.3",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
