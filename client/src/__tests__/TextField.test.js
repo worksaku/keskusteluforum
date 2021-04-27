@@ -1,5 +1,6 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import TextField from './TextField';
+import { TextField } from '../components';
 
 test('renders text field', () => {
   render(<TextField />);

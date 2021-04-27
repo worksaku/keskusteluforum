@@ -1,5 +1,6 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import PostList from './PostList';
+import { PostList } from '../components';
 
 test('renders post list', () => {
   render(<PostList />);

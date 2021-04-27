@@ -1,6 +1,7 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import Post from './Post';
+import { Post } from '../components';
 
 test('renders post', () => {
   render(
